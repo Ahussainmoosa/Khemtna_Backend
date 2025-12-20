@@ -1,0 +1,16 @@
+const User = require('../models/User');
+
+const adminPerm = (req, res, next) => {
+  try{
+    if (!req.user || req.user.role !== "school") {
+      console.log('test')
+      return res.status(403).json("Access denied");
+    }
+  next();
+  } catch (err){
+    console.log(err);
+    res.status(500).json({err: 'Server error'});
+  }
+};
+
+module.exports = adminPerm;
