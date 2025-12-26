@@ -4,7 +4,7 @@ const propertyPhotoSchema = new mongoose.Schema(
   {
     propertyId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Property',
+      ref: 'Proparites',
       required: true,
     },
 

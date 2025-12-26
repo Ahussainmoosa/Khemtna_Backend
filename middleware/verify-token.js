@@ -18,6 +18,7 @@ const verifyToken = (req, res, next) => {
       role: payload.role,
       username: payload.username,
       };
+    console.log(req.user);
 
     next();
   } catch (err) {

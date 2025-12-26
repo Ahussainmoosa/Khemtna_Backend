@@ -40,16 +40,16 @@ app.use(logger('dev'));
 // Public
 app.use('/auth', authCtrl);
 app.use('/test-jwt', testJwtRouter);
+app.use('/properties', propartiesCtrl);
 
 // Protected Routes
 app.use(verifyToken);
-app.use(isSignedIn);
+//app.use(isSignedIn);
+app.use('/uploads', express.static('uploads'));
 app.use('/users', authorizeRoles("admin"), usersCtrl);
 app.use('/booking', authorizeRoles("user","owner", "admin"),bookingCtrl)
 app.use('/photo', authorizeRoles("owner", "admin"), photosCtrl);
-app.use('/properties', authorizeRoles("owner", "admin"), propartiesCtrl);
 app.use('/reviews', authorizeRoles("user","owner", "admin"), reviewsCtrl);
-
 
 app.listen(PORT, () => {
   console.log('The express app is ready!');
