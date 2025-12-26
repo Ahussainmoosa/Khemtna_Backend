@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const User = require("./models/user");
+const User = require("./models/User");
 require("dotenv").config();
 
 async function admin() {
@@ -19,9 +19,10 @@ async function admin() {
     // Create admin user
     const adminUser = new User({
       username: "Ali admin",
-      //email: "ALi123@example.com",
+      email: "ALi123@example.com",
       hashedPassword: hashedPassword,
-      role: "school",
+      role: "admin",
+      ContactNumber:"36644096",
     });
     
 

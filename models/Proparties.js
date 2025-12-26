@@ -1,28 +1,47 @@
 const mongoose = require('mongoose');
 
 const propartiesSchema = mongoose.Schema({
-  ownerId:[{
+  ownerId:{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-  }],
+    required: true ,
+  },
   name:{
     type: String,
-    require: true,
+    requireed: true,
   },
   description: {
     type: String,
     required: true,
   }, 
-  price:{
-    type: Number,
-    require: true,
-    min : 0
+  price: {
+    weekday: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
+    weekend: {
+      type: Number,
+      required: true,
+      min: 0,
+    },
   },
   ContactNumber :{
     type:String,
     require: true,
 
   },
+  location: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      default: 'Point',
+    },
+    coordinates: {
+      type: [Number], 
+      required: true,
+      },
+    },
 });
 
 const Proparites = mongoose.model('Proparites', propartiesSchema);

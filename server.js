@@ -25,6 +25,7 @@ const reviewsCtrl= require('./controllers/reviews.js')
 
 // MiddleWare
 const verifyToken = require('./middleware/verify-token');
+const authorizeRoles = require("./middleware/authorize-roles");
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -42,11 +43,12 @@ app.use('/test-jwt', testJwtRouter);
 
 // Protected Routes
 app.use(verifyToken);
-app.use('/users', usersCtrl);
-app.use('/booking',bookingCtrl)
-app.use('/photo', photosCtrl);
-app.use('/properties', propartiesCtrl);
-app.use('/reviews', reviewsCtrl);
+app.use(isSignedIn);
+app.use('/users', authorizeRoles("admin"), usersCtrl);
+app.use('/booking', authorizeRoles("user","owner", "admin"),bookingCtrl)
+app.use('/photo', authorizeRoles("owner", "admin"), photosCtrl);
+app.use('/properties', authorizeRoles("owner", "admin"), propartiesCtrl);
+app.use('/reviews', authorizeRoles("user","owner", "admin"), reviewsCtrl);
 
 
 app.listen(PORT, () => {

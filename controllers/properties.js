@@ -26,8 +26,11 @@ router.get('/:id', async (req, res) => {
 // Create property
 router.post('/', async (req, res) => {
   try {
-    const property = new Property(req.body);
-    await property.save();
+    req.body.ownerId = req.user.id;
+
+    const property = await Property.create(req.body);
+    if (!property) return res.status(400).json({ success: false, message: "Property not created" });
+
     res.status(201).json({ success: true, data: property });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
