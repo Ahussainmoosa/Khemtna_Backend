@@ -6,27 +6,34 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
-  email:{
+
+  email: {
     type: String,
-    require: true,
+    required: true,
   },
+
   hashedPassword: {
     type: String,
     required: true,
   },
-  role:{
-    type:String ,
-    required: true ,
-    enum:['admin','user','owner'],
+
+  role: {
+    type: String,
+    enum: ['admin', 'user', 'owner'],
     default: 'user',
   },
-  ContactNumber :{
-    type:String,
-    require: true,
 
+  ContactNumber: {
+    type: String,
+    required: true,
+  },
+
+  ownerRequestStatus: {
+    type: String,
+    enum: ['none', 'pending', 'approved', 'rejected'],
+    default: 'none',
   },
 });
-  
 
 userSchema.set('toJSON', {
   transform: (document, returnedObject) => {

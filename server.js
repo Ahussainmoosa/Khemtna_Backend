@@ -46,7 +46,7 @@ app.use('/properties', propartiesCtrl);
 app.use(verifyToken);
 //app.use(isSignedIn);
 app.use('/uploads', express.static('uploads'));
-app.use('/users', authorizeRoles("admin"), usersCtrl);
+app.use('/users', usersCtrl);
 app.use('/booking', authorizeRoles("user","owner", "admin"),bookingCtrl)
 app.use('/photo', authorizeRoles("owner", "admin"), photosCtrl);
 app.use('/reviews', authorizeRoles("user","owner", "admin"), reviewsCtrl);
